@@ -8,6 +8,15 @@
     <script src="assets/jquery-3.2.1.min.js"></script>
     <script src="flickrApi.js"></script>
     <script src="renderer.js"></script>
+    
+    <style>
+		#preview {
+		  float: left;
+		}
+		#lister {
+		  height: 75
+		}
+   </style>
   </head>
   <body>
     <div id= "message"> </div>
@@ -15,8 +24,11 @@
         <input id="username"/>
         <button id="submit">enter</button>
     </div>
-    
-    <div><textarea id="code" rows="12" cols="120"></textarea></div>
-    <div id = "preview"/>
+    <div>
+      <div><button id="generate">generate html</button></div>
+      <textarea id="code" rows="12" cols="120"></textarea>
+    </div>
+    <div class= "lister" id = "lister"></div>
+    <div id = "preview"></div>
   </body>
 </html>

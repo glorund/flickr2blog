@@ -6,3 +6,37 @@
 .thumbnail img {
   vertical-align: bottom;
 }
+.thumbnail .selector {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
+    opacity: .8;
+}
+.thumbnail.selected .selector{
+    border: 3px dotted #00ff40;
+    border-top-color: #ffff00231211130;
+    border-top-style: dotted;
+    border-top-width: 3px;
+    border-right-color: #ffff00231211130;
+    border-right-style: dotted;
+    border-right-width: 3px;
+    border-bottom-color: #ffff00231211130;
+    border-bottom-style: dotted;
+    border-bottom-width: 3px;
+    border-left-color: #ffff00231211130;
+    border-left-style: dotted;
+    border-left-width: 3px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
+.lister img{
+  display: inline-block;
+  float:left;
+  margin: 0px;
+  padding: 0px;
+}
