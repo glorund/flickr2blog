@@ -1,12 +1,15 @@
 {
-  "name": "Hello World!",
-  "description": "My first Chrome App.",
-  "version": "0.1",
   "manifest_version": 2,
+  "name": "Flickr 2 Blog",
+  "description": "Flickr 2 Blog Chrome App.",
+  "version": "0.1",
   "app": {
     "background": {
-      "scripts": ["background.js"]
+      "scripts": ["launcher.js"]
     }
   },
-  "icons": { "16": "flickr2blog-16.png", "128": "flickr2blog-128.png" }
+  "icons": { "16": "flickr2blog-16.png", "128": "flickr2blog-128.png" },
+  "permissions": [
+    "https://api.flickr.com/"
+  ]
 }

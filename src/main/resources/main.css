@@ -1,0 +1,8 @@
+.thumbnail {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.thumbnail img {
+  vertical-align: bottom;
+}

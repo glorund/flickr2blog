@@ -1,26 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<meta charset="UTF-8">
   <head>
-    <title>Flickr JSON</title>
+    <meta charset="UTF-8"/>
+    <title>Flickr 2 Blog</title>
+    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="flickrApi.js"></script>
+    <script src="renderer.js"></script>
   </head>
-  <script>
-  function jsonFlickrApi(rsp) {
-    window.rsp = rsp;
-    var s = "";
-    // http://farm{id}.static.flickr.com/{server-id}/{id}_{secret}_[mstb].jpg
-    // http://www.flickr.com/photos/{user-id}/{photo-id}
-    s = "total number is: " + rsp.photos.photo.length + "<br/>";
+  <body>
+    <div id= "message"> </div>
+    <div>
+        <input id="username"/>
+        <button id="submit">enter</button>
+    </div>
     
-    for (var i=0; i < rsp.photos.photo.length; i++) {
-      photo = rsp.photos.photo[i];
-      t_url = photo.url_m;
-      s +=  '<p><img alt="'+ photo.title + 
-        '"src="' + t_url + '"/>' + '</p>';
-    }
-    document.writeln(s);
-  }
-  </script>
-<script src="https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=6999cfb48e503984938e6c9ab658b33f&user_id=76388752@N05&extras=url_m&per_page=5&format=json"></script>
+    <div><textarea id="code" rows="12" cols="120"></textarea></div>
+    <div id = "preview"/>
+  </body>
 </html>
