@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>blogposter</groupId>
     <artifactId>blogposter</artifactId>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
@@ -14,7 +15,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

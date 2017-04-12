@@ -23,7 +23,6 @@ public class Poster {
         String userId = user.getId(); 
         PhotoList<Photo> photos = f.getPeopleInterface().getPublicPhotos(userId, 10, 2);
         for (Photo photo: photos) {
-            f.getPhotosetsInterface().get
             System.out.println("<p>"+photo.getTitle()+"<img src=\""+getUrl(photo)+"\" alt=\""+photo.getTitle()+"\">"
                         );
         }
