@@ -10,11 +10,14 @@
     <script src="renderer.js"></script>
     
     <style>
+    	#pager {
+		  float: left;
+		}
 		#preview {
 		  float: left;
 		}
 		#lister {
-		  height: 75
+		  height: 75px;
 		}
    </style>
   </head>
@@ -29,6 +32,11 @@
       <textarea id="code" rows="12" cols="120"></textarea>
     </div>
     <div class= "lister" id = "lister"></div>
+    <div id="pager">
+        <a href="javascript:prevPage()" id="btn_prev">Prev</a>
+        <a href="javascript:nextPage()" id="btn_next">Next</a>
+        page: <span id="page"></span>
+    </div>
     <div id = "preview"></div>
   </body>
 </html>

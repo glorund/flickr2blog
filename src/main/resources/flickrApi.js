@@ -1,8 +1,11 @@
 var apiKey= '6999cfb48e503984938e6c9ab658b33f';
-var pageSize = 20;
+var pageSize = 80;
 var apiBaseURL = 'https://api.flickr.com/services/rest/?';
-var photos;
+var photos =[];
+var storedPhotos = [];
 var selectedPhotos = [];
+var userId;
+
 $(document).ready(function(){
     $('#submit').on('click', checkUserName);
     $('#generate').on('click', generateHtml);
@@ -14,26 +17,35 @@ $(document).ready(function(){
 });
 
 function updateSelection(id) {
-    if ($.inArray(id, selectedPhotos) >= 0) {
+    var index = getPhotoById(id);
+    if ($.inArray(photos[index], selectedPhotos) >= 0) {
+        selectedPhotos.splice( $.inArray(photos[index], selectedPhotos), 1 );
         $('#'+id).parent().removeClass("selected");
-        selectedPhotos.splice( $.inArray(id, selectedPhotos), 1 );
     } else {
-        selectedPhotos.push(id);
-        $('#'+id).parent().addClass("selected");
+        if (index >= 0) {
+            selectedPhotos.push(photos[index]);
+            $('#'+id).parent().addClass("selected");
+        }
     }
     preview();
 }
 
+function getPhotoById (id) {
+    for (var index = 0; index < photos.length; index++) {
+        var photo = photos[index];
+        if (photo.id == id) {
+            return index;
+        }
+    }
+    return -1;
+}
+
 function preview() {
     var html = '';
-    var pos = 1;
-    for (var i = 0; i < photos.length; i++) {
-        var photo = photos[i];
-        if ($.inArray(photo.id, selectedPhotos) >= 0) {
-            var body = '<img width ="75" height = "75" class="preview" alt="' + photo.title + '"src="'+ photo.url_s + '"/>' ;
-            html += '<div>'+body +'</div>\n';
-            pos++;
-        }
+    for (var i = 0; i < selectedPhotos.length; i++) {
+        var photo = selectedPhotos[i];
+        var body = '<img alt="' + photo.title + '"src="'+ photo.url_s + '"/>' ;
+        html += '<div>'+body +'</div>\n';
     }
     $("#lister").html(html);
 }
@@ -44,11 +56,12 @@ function checkUserName() {
     $.getJSON(apiBaseURL+'&method=flickr.people.findByUsername&'+
             'api_key='+apiKey+
             '&username='+username+
-            '&format=json&jsoncallback=?',
+            '&format=json&nojsoncallback=1', 
         function(data) {
             if (data.stat == 'ok') {
               $('#message').html(data.user.nsid);
-              fetch(data.user.nsid);
+              userId = data.user.nsid;
+              fetch(userId,currentPage);
             }
         }
     )
@@ -58,37 +71,34 @@ function checkUserName() {
 function generateHtml () {
     var html = '';
     var pos = 1;
-    for (var i = 0; i < photos.length; i++) {
+    for (var i = 0; i < selectedPhotos.length; i++) {
         var photo = photos[i];
-        if ($.inArray(photo.id, selectedPhotos) >= 0) {
-            var t_url = photo.url_m;
-            var body = '<img alt="' + photo.title + '"src="'+ t_url + '"/>' ;
-            html += '<p>'+pos+'. '+photo.title+body + '</p>\n';
-            pos++;
-        }
+        var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
+        html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
+        pos++;
     }
     $("#code").val(html);
 }
 
-function fetch(userId) {
+function fetch(userId,currentPage) {
     $.getJSON(apiBaseURL+'&method=flickr.people.getPublicPhotos&'+
             'api_key='+apiKey+
             '&user_id='+userId+
             '&extras=url_m,url_s'+
+            '&page='+currentPage+
             '&per_page='+pageSize+
-            '&format=json&jsoncallback=?',
+            '&format=json&nojsoncallback=1',
         function(data) {
             photos = [];
-            selectedPhotos = [];
-            var header = "total number is: "
-                    + data.photos.photo.length + "<br/>";
-            var s = "";
+            currentPage = data.photos.page;
+            totalPages = data.photos.pages;
+            var perPage = data.photos.perpage;
+            var header = "Pages: [" + data.photos.page +"/"+data.photos.pages+"]"+ data.photos.photo.length +"/"+ data.photos.perpage +"<br/>";
             var preview = "<div id=\"selected\">\n";
             for (var i = 0; i < data.photos.photo.length; i++) {
                 var photo = data.photos.photo[i];
                 photos.push(photo);
-                var t_url = photo.url_s;
-                var body = '<img alt="' + photo.title + '"src="'+ t_url + '"/>' ;
+                var body = '<img alt="' + photo.title + '"src="'+ photo.url_s + '"/>' ;
                 preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+photo.id+'"/></div>\n';
             }
             preview += "</div>";
