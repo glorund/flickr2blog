@@ -31,15 +31,15 @@ function changePage(page)
     fetch(userId,page);
     
     if (page == 1) {
-        btn_prev.style.visibility = "hidden";
+        $('#btn_prev').hide();
     } else {
-        btn_prev.style.visibility = "visible";
+        $('#btn_prev').show();
     }
 
-    if (page == numPages()) {
-        btn_next.style.visibility = "hidden";
+    if (page == totalPages) {
+        $('#btn_next').hide();
     } else {
-        btn_next.style.visibility = "visible";
+        $('#btn_next').show();
     }
 }
 

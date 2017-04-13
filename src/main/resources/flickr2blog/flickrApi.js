@@ -7,13 +7,15 @@ var selectedPhotos = [];
 var userId;
 
 $(document).ready(function(){
-    $('#submit').on('click', checkUserName);
-    $('#generate').on('click', generateHtml);
-    
+    $('#loadUser').on('click', checkUserName);
+    $('#btnShowHtml').on('click', showHtmlBox);
+    $('#pagerPrev').on('click', prevPage);
+    $('#pagerNext').on('click', nextPage);
+    $('#hideHtmlBox').on('click', hideHtmlBox);
     $('#preview').on('click', '.selector', function(){
         updateSelection($(this).prop('id'));
     });
-
+    $('#btnShowHtml').hide();
 });
 
 function updateSelection(id) {
@@ -64,10 +66,14 @@ function preview() {
     var html = '';
     for (var i = 0; i < selectedPhotos.length; i++) {
         var photo = selectedPhotos[i];
-        var body = '<img alt="' + photo.title + '"src="'+ photo.url_s + '"/>' ;
+        var body = '<img id="selected_img_'+photo.id+'" alt="' + photo.title + '" />';
         html += '<div>'+body +'</div>\n';
     }
     $("#lister").html(html);
+    for (var i = 0; i < selectedPhotos.length; i++) {
+        var photo = selectedPhotos[i];
+        imageLoader("selected_img_",photo.id,photo.url_s);
+    }
 }
 
 function checkUserName() {
@@ -89,15 +95,18 @@ function checkUserName() {
 }
 
 function generateHtml () {
-    var html = '';
-    var pos = 1;
-    for (var i = 0; i < selectedPhotos.length; i++) {
-        var photo = photos[i];
-        var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
-        html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
-        pos++;
+    if (selectedPhotos.length > 0) {
+        var html = '';
+        for (var i = 0; i < selectedPhotos.length; i++) {
+            var photo = photos[i];
+            var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
+            html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
+        }
+        $("#code").val(html);
+        $('#btnShowHtml').show();
+    } else {
+        $('#btnShowHtml').hide();
     }
-    $("#code").val(html);
 }
 
 function fetch(userId,currentPage) {
@@ -118,13 +127,25 @@ function fetch(userId,currentPage) {
             for (var i = 0; i < data.photos.photo.length; i++) {
                 var photo = data.photos.photo[i];
                 photos.push(photo);
-                var body = '<img alt="' + photo.title + '"src="'+ photo.url_s + '"/>' ;
+                var body = '<img id="img_'+photo.id+'"alt="' + photo.title + '"/>' ;
                 preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+photo.id+'"/></div>\n';
             }
             preview += "</div>";
             $("#preview").html(header + preview);
+            for (i = 0; i < photos.length; i++) {
+                photo = photos[i];
+                imageLoader("img_",photo.id,photo.url_s);
+            }
             markSelected();
         });
 }
 
-
+function imageLoader(prefix,id,url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      $("#"+prefix+id).attr('src', window.URL.createObjectURL(this.response));
+    };
+    xhr.send();
+}

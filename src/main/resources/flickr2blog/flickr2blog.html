@@ -17,27 +17,26 @@
 		  float: left;
 		}
 		#lister {
-		  height: 75px;
+		  height: 80px;
 		}
    </style>
   </head>
   <body>
     <div class="floater">
-      <a href="javascript:hideHtmlBox()" id="btn_submit" style="text-align: right; display: block;">X</a>
+      <a id="hideHtmlBox" style="text-align: right; display: block;"><img src="Close.png"/></a>
       <textarea id="code" rows="12" cols="120" style="width: 100%;"></textarea>
+      <textarea id="keywords" rows="12" cols="120" style="width: 100%;"></textarea>
     </div>
     <div id= "message" style="min-height: 18px"> </div>
     <div>
-        <input id="username"/>
-        <button id="submit">enter</button>
-        <a href="javascript:checkUserName()" id="btn_submit">submit 2</a>
-        <a href="javascript:showHtmlBox()" id="btn_submit">show html</a>
+        username: <input id="username"/>
+        <button id="loadUser">load</button>
+        <button id="btnShowHtml">show html</button>
     </div>
     <div class= "lister" id = "lister"></div>
     <div id="pager">
-        <a href="javascript:prevPage()" id="btn_prev">Prev</a>
-        <a href="javascript:nextPage()" id="btn_next">Next</a>
-        page: <span id="page"></span>
+        <a id="pagerPrev"><img width = "32px" height ="32px" src="Left.png"/></a>
+        <a id="pagerNext"><img width = "32px" height ="32px" src="Right.png"/></a>
     </div>
     <div id = "preview"></div>
   </body>
