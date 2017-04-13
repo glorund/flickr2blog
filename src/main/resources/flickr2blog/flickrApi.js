@@ -78,7 +78,12 @@ function preview() {
 
 function checkUserName() {
     var username = $("#username").val();
-
+    selectedPhotos = [];
+    photos = [];
+    currentPage = 1;
+    totalPages = 0;
+    $('#btnShowHtml').hide();
+    preview();
     $.getJSON(apiBaseURL+'&method=flickr.people.findByUsername&'+
             'api_key='+apiKey+
             '&username='+username+
