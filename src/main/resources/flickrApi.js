@@ -18,18 +18,38 @@ $(document).ready(function(){
 
 function updateSelection(id) {
     var index = getPhotoById(id);
-    if ($.inArray(photos[index], selectedPhotos) >= 0) {
-        selectedPhotos.splice( $.inArray(photos[index], selectedPhotos), 1 );
-        $('#'+id).parent().removeClass("selected");
-    } else {
-        if (index >= 0) {
+    if (index >= 0) {
+        var selectedIndex = getSelectedPhotoById(id);
+        if (selectedIndex >= 0) {
+            selectedPhotos.splice( selectedIndex, 1 );
+            $('#'+id).parent().removeClass("selected");
+        } else {
             selectedPhotos.push(photos[index]);
             $('#'+id).parent().addClass("selected");
         }
     }
     preview();
+    generateHtml();
 }
 
+function markSelected() {
+    if (selectedPhotos.length > 0) {
+        for (var index = 0; index < photos.length; index++) {
+            if (getSelectedPhotoById(photos[index].id)>=0) {
+                $('#'+photos[index].id).parent().addClass("selected");
+            } else {
+                $('#'+photos[index].id).parent().removeClass("selected");
+            }
+        }
+    }
+}
+
+function getSelectedPhotoById(id) {
+    for (var index = 0; index < selectedPhotos.length; index++) {
+        if (selectedPhotos[index].id == id) return index;
+    }
+    return -1;
+}
 function getPhotoById (id) {
     for (var index = 0; index < photos.length; index++) {
         var photo = photos[index];
@@ -92,7 +112,7 @@ function fetch(userId,currentPage) {
             photos = [];
             currentPage = data.photos.page;
             totalPages = data.photos.pages;
-            var perPage = data.photos.perpage;
+            pageSize = data.photos.perpage;
             var header = "Pages: [" + data.photos.page +"/"+data.photos.pages+"]"+ data.photos.photo.length +"/"+ data.photos.perpage +"<br/>";
             var preview = "<div id=\"selected\">\n";
             for (var i = 0; i < data.photos.photo.length; i++) {
@@ -103,6 +123,7 @@ function fetch(userId,currentPage) {
             }
             preview += "</div>";
             $("#preview").html(header + preview);
+            markSelected();
         });
 }
 

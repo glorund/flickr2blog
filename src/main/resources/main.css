@@ -1,6 +1,9 @@
 body {
     font-family: Arial,Lucida Grande,sans-serif;
 }
+button {
+  border: none;
+}
 .thumbnail {
   position: relative;
   overflow: hidden;
@@ -41,10 +44,23 @@ body {
 }
 .lister img{
   object-fit: cover;
-  width:75px;
-  height:75px;
+  width:74px;
+  height:74px;
 }
 .lister div{
   float: left;
   margin: 1px
+}
+.floater {
+   z-index: 1;
+   border: 2px;
+   display:none; 
+   position: absolute; 
+   right: 100px; 
+   left: 100px; 
+   top: 20px; 
+   background-color: rgba(53, 56, 53, 0.25); 
+   width: auto; 
+   height: auto; 
+   padding: 0px; 
 }

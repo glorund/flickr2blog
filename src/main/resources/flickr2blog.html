@@ -22,14 +22,16 @@
    </style>
   </head>
   <body>
-    <div id= "message"> </div>
+    <div class="floater">
+      <a href="javascript:hideHtmlBox()" id="btn_submit" style="text-align: right; display: block;">X</a>
+      <textarea id="code" rows="12" cols="120" style="width: 100%;"></textarea>
+    </div>
+    <div id= "message" style="min-height: 18px"> </div>
     <div>
         <input id="username"/>
         <button id="submit">enter</button>
-    </div>
-    <div>
-      <div><button id="generate">generate html</button></div>
-      <textarea id="code" rows="12" cols="120"></textarea>
+        <a href="javascript:checkUserName()" id="btn_submit">submit 2</a>
+        <a href="javascript:showHtmlBox()" id="btn_submit">show html</a>
     </div>
     <div class= "lister" id = "lister"></div>
     <div id="pager">
