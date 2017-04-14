@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Flickr 2 Blog",
   "description": "Flickr 2 Blog Chrome App.",
-  "version": "0.1",
+  "version": "0.2.1",
   "app": {
     "background": {
       "scripts": ["launcher.js"]

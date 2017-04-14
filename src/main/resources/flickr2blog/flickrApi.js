@@ -103,7 +103,7 @@ function generateHtml () {
     if (selectedPhotos.length > 0) {
         var html = '';
         for (var i = 0; i < selectedPhotos.length; i++) {
-            var photo = photos[i];
+            var photo = selectedPhotos[i];
             var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
             html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
         }
