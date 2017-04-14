@@ -1,21 +1,23 @@
 var apiKey= '6999cfb48e503984938e6c9ab658b33f';
-var pageSize = 80;
+var pageSize = 40;
 var apiBaseURL = 'https://api.flickr.com/services/rest/?';
 var photos =[];
 var storedPhotos = [];
 var selectedPhotos = [];
 var userId;
+var currentPage;
+var totalPages;
 
 $(document).ready(function(){
     $('#loadUser').on('click', checkUserName);
     $('#btnShowHtml').on('click', showHtmlBox);
-    $('#pagerPrev').on('click', prevPage);
-    $('#pagerNext').on('click', nextPage);
+
     $('#hideHtmlBox').on('click', hideHtmlBox);
     $('#preview').on('click', '.selector', function(){
         updateSelection($(this).prop('id'));
     });
     $('#btnShowHtml').hide();
+    
 });
 
 function updateSelection(id) {
@@ -114,12 +116,12 @@ function generateHtml () {
     }
 }
 
-function fetch(userId,currentPage) {
+function fetch(userId,page) {
     $.getJSON(apiBaseURL+'&method=flickr.people.getPublicPhotos&'+
             'api_key='+apiKey+
             '&user_id='+userId+
             '&extras=url_m,url_s'+
-            '&page='+currentPage+
+            '&page='+page+
             '&per_page='+pageSize+
             '&format=json&nojsoncallback=1',
         function(data) {
@@ -136,13 +138,14 @@ function fetch(userId,currentPage) {
                 preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+photo.id+'"/></div>\n';
             }
             preview += "</div>";
-            $("#pagesInfo").html(header);
+            createPager(data.photos.page,data.photos.pages);
+
             $("#preview").html(preview);
-            
             for (i = 0; i < photos.length; i++) {
                 photo = photos[i];
                 imageLoader("img_",photo.id,photo.url_s);
             }
+
             markSelected();
         });
 }

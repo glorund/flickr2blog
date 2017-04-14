@@ -8,6 +8,7 @@
     <script src="assets/jquery-3.2.1.min.js"></script>
     <script src="flickrApi.js"></script>
     <script src="renderer.js"></script>
+    <script src="pagination.js"></script>
     
     <style>
     	#pager {
@@ -39,11 +40,9 @@
         <button id="btnShowHtml">show html code</button>
     </div>
     <div class= "lister" id = "lister"></div>
-    <div id="pager">
-        <a id="pagerPrev"><img width = "32px" height ="32px" src="Left.png"/></a>
-        <span id = "pagesInfo"></span>
-        <a id="pagerNext"><img width = "32px" height ="32px" src="Right.png"/></a>
+    <div id="pager" class="pagination">
     </div>
+    <div id="pagination"></div>
     <div id = "preview"></div>
   </body>
 </html>
