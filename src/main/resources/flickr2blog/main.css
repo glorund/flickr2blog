@@ -48,8 +48,7 @@ button {
   height:74px;
 }
 .lister div{
-  float: left;
-  margin: 1px
+  display: inline-block;
 }
 .floater {
    z-index: 1;
