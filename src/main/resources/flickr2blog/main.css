@@ -63,3 +63,7 @@ button {
    height: auto; 
    padding: 0px; 
 }
+
+#pager a {
+   cursor: pointer;
+}

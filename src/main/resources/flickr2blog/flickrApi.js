@@ -127,7 +127,7 @@ function fetch(userId,currentPage) {
             currentPage = data.photos.page;
             totalPages = data.photos.pages;
             pageSize = data.photos.perpage;
-            var header = "Pages: [" + data.photos.page +"/"+data.photos.pages+"]"+ data.photos.photo.length +"/"+ data.photos.perpage +"<br/>";
+            var header = "Pages: [" + data.photos.page +"/"+data.photos.pages+"]"+ data.photos.photo.length +"/"+ data.photos.perpage;
             var preview = "<div id=\"selected\">\n";
             for (var i = 0; i < data.photos.photo.length; i++) {
                 var photo = data.photos.photo[i];
@@ -136,7 +136,9 @@ function fetch(userId,currentPage) {
                 preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+photo.id+'"/></div>\n';
             }
             preview += "</div>";
-            $("#preview").html(header + preview);
+            $("#pagesInfo").html(header);
+            $("#preview").html(preview);
+            
             for (i = 0; i < photos.length; i++) {
                 photo = photos[i];
                 imageLoader("img_",photo.id,photo.url_s);
