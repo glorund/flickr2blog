@@ -47,15 +47,22 @@ button {
 }
 .lister div{
   display: inline-block;
+  position: relative;
 }
 .lister a{
+  position: absolute;
+  cursor: pointer;
   vertical-align: top;
   top: 0;
   right: 0;
   z-index: 1;
 }
+.lister a img{
+    width: auto;
+    height: auto;
+}
 .floater {
-   z-index: 1;
+   z-index: 99;
    border: 2px;
    display:none; 
    position: absolute; 
@@ -66,6 +73,10 @@ button {
    width: auto; 
    height: auto; 
    padding: 0px; 
+   border-radius: 15px;
+   border: 2px solid #73AD21;
+   padding: 15px;
+   background: wheat;
 }
 
 .pagination {
@@ -86,9 +97,9 @@ button {
 .pagination a.active {
     pointer-events: none;
     cursor: default;
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
+    background-color: #fafafa;
+    color: black;
+    border: 1px solid #fafafa;
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}

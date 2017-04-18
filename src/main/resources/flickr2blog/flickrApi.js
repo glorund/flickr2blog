@@ -69,7 +69,7 @@ function preview() {
     for (var i = 0; i < selectedPhotos.length; i++) {
         var photo = selectedPhotos[i];
         var body = '<img id="selected_img_'+photo.id+'" alt="' + photo.title + '" />';
-        html += '<div>'+body +'<a id="remove_'+photo.id+'">rm</a</div>\n';
+        html += '<div>'+body +'<a id="remove_'+photo.id+'"><img  width="16px" height="16px" src="Close.png"/></a></div>\n';
     }
     $("#lister").html(html);
     for (var i = 0; i < selectedPhotos.length; i++) {
@@ -107,11 +107,13 @@ function generateHtml () {
         var keywords = [];
         for (var i = 0; i < selectedPhotos.length; i++) {
             var photo = selectedPhotos[i];
-            var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
-            html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
+            var body = '<a href="https://www.flickr.com/photos/'+userId+'/'+photo.id+'">';
+            body += '<img style="position:relative" alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
+            body +=' </a>';
+            html += '<div>'+body + '<div >'+photo.title+ '</div></div>\n';
             var tags = photo.tags.split(" ");
             for (var j =0 ; j< tags.length; j++) {
-                if ($.inArray(tags[j], keywords) >= 0) {
+                if ($.inArray(tags[j], keywords) < 0) {
                     keywords.push(tags[j]);
                 }
             }
