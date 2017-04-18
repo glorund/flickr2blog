@@ -12,7 +12,8 @@ function fixPreviewHeight() {
     $('#message').html('<div>resized'+x+'x'+y+'</div>'); // 180
     // 33
     $('#preview').css('width',x-15);
-    $('#preview').css('height',y-180); 
+    $('#preview').css('height',y-180);
+    generatePreview(currentPage,totalPages);
 }
 
 function showHtmlBox() {

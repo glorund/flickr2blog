@@ -137,27 +137,52 @@ function fetch(userId,page) {
             currentPage = data.photos.page;
             totalPages = data.photos.pages;
             pageSize = data.photos.perpage;
-            var header = "Pages: [" + data.photos.page +"/"+data.photos.pages+"]"+ data.photos.photo.length +"/"+ data.photos.perpage;
-            var preview = "<div id=\"selected\">\n";
             for (var i = 0; i < data.photos.photo.length; i++) {
                 var photo = data.photos.photo[i];
                 photos.push(photo);
-                var body = '<img id="img_'+photo.id+'"alt="' + photo.title + '"/>' ;
-                preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+photo.id+'"/></div>\n';
             }
-            preview += "</div>";
-            createPager(data.photos.page,data.photos.pages);
-
-            $("#preview").html(preview);
-            for (i = 0; i < photos.length; i++) {
-                photo = photos[i];
-                imageLoader("img_",photo.id,photo.url_s);
-            }
-
-            markSelected();
+            generatePreview(data.photos.page,data.photos.pages);
         });
 }
 
+function generatePreview(page,pages) {
+    var preview = "<div id=\"selected\">\n";
+    var X = $("#preview").width()-50;
+    var baseHeight = 100;
+    var filler = 0;
+    var line = [];
+    for (var i = 0; i < photos.length; i++) {
+        var photo = photos[i];
+        var aspect = baseHeight/Number(photo.height_s);
+        if (filler + aspect*Number(photo.width_s) >= X ) {
+            var multiplayer = (X)/filler;
+            preview += generatePreviewLine(baseHeight,multiplayer,line);
+            filler = 0;
+            line = [];
+        }
+        filler += aspect*Number(photo.width_s);
+        line.push(photo);
+    }
+    preview += generatePreviewLine(baseHeight,1,line);
+    preview += "</div>";
+    createPager(page,pages);
+
+    $("#preview").html(preview);
+    for (i = 0; i < photos.length; i++) {
+        photo = photos[i];
+        imageLoader("img_",photo.id,photo.url_s);
+    }
+    markSelected();
+}
+function generatePreviewLine(baseHeight,multiplayer,line) {
+    var preview = '';
+    for (var lineIndex = 0 ; lineIndex < line.length; lineIndex++) {
+        var image = line[lineIndex];
+        var body = '<img id="img_'+image.id+'"alt="' + image.title + '" height="'+(baseHeight*multiplayer)+'"/>'; //'+(image.width_s*multiplayer)+'
+        preview += '<div class="thumbnail">' + body + '<div class="selector" id="'+image.id+'"/></div>\n';
+    }
+    return preview;
+}
 function imageLoader(prefix,id,url) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
