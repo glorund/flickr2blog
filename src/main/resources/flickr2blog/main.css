@@ -11,8 +11,6 @@ button {
 }
 .thumbnail img {
   vertical-align: bottom;
-/*  width: auto;
-  height: auto; */
 }
 .thumbnail .selector {
     position: absolute;
