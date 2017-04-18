@@ -69,7 +69,7 @@ function preview() {
     for (var i = 0; i < selectedPhotos.length; i++) {
         var photo = selectedPhotos[i];
         var body = '<img id="selected_img_'+photo.id+'" alt="' + photo.title + '" />';
-        html += '<div>'+body +'</div>\n';
+        html += '<div>'+body +'<a id="remove_'+photo.id+'">rm</a</div>\n';
     }
     $("#lister").html(html);
     for (var i = 0; i < selectedPhotos.length; i++) {
@@ -104,12 +104,20 @@ function checkUserName() {
 function generateHtml () {
     if (selectedPhotos.length > 0) {
         var html = '';
+        var keywords = [];
         for (var i = 0; i < selectedPhotos.length; i++) {
             var photo = selectedPhotos[i];
             var body = '<img alt="' + photo.title + '"src="'+ photo.url_m + '" width="'+photo.width_m+'" hieght="'+photo.height_m+'"/>' ;
             html += '<p>'+(i+1)+'. '+photo.title+body + '</p>\n';
+            var tags = photo.tags.split(" ");
+            for (var j =0 ; j< tags.length; j++) {
+                if ($.inArray(tags[j], keywords) >= 0) {
+                    keywords.push(tags[j]);
+                }
+            }
         }
         $("#code").val(html);
+        $("#keywords").val(keywords);
         $('#btnShowHtml').show();
     } else {
         $('#btnShowHtml').hide();
@@ -120,7 +128,7 @@ function fetch(userId,page) {
     $.getJSON(apiBaseURL+'&method=flickr.people.getPublicPhotos&'+
             'api_key='+apiKey+
             '&user_id='+userId+
-            '&extras=url_m,url_s'+
+            '&extras=url_m,url_s,tags'+
             '&page='+page+
             '&per_page='+pageSize+
             '&format=json&nojsoncallback=1',

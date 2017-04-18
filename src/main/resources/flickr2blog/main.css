@@ -50,6 +50,12 @@ button {
 .lister div{
   display: inline-block;
 }
+.lister a{
+  vertical-align: top;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
 .floater {
    z-index: 1;
    border: 2px;
@@ -65,6 +71,7 @@ button {
 }
 
 .pagination {
+    margin: auto;
     display: inline-block;
 }
 .pagination div{
@@ -73,8 +80,7 @@ button {
 .pagination a {
     color: black;
     cursor: pointer;
-    float: left;
-    padding: 8px 16px;
+    padding: 4px 8px;
     text-decoration: none;
     border: 1px solid #ddd;
 }

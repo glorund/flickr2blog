@@ -11,20 +11,23 @@
     <script src="pagination.js"></script>
     
     <style>
-    	#pager {
-		  float: left;
-		}
-		#preview {
-		  float: left;
-		}
-		#lister {
-		  height: 80px;
-	      height: 95px;
+        #pager {
+           margin-top: 8px;
+           height: 32px;
+        }
+        #preview {
+          display: flex;
+          overflow: scroll;
+          overflow-x: hidden;
+        }
+        #lister {
+          height: 80px;
+          height: 95px;
           overflow: auto;
           overflow-y: hidden; 
           overflow-x: scroll;
           white-space: nowrap;
-		}
+        }
    </style>
   </head>
   <body>
@@ -34,7 +37,7 @@
       <textarea id="keywords" rows="12" cols="120" style="width: 100%;"></textarea>
     </div>
     <div id= "message" style="min-height: 18px"> </div>
-    <div>
+    <div id="loginBox" style="z-index: 1;">
         username: <input id="username"/>
         <button id="loadUser">load</button>
         <button id="btnShowHtml">show html code</button>
