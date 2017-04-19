@@ -2,13 +2,14 @@
   "manifest_version": 2,
   "name": "Flickr 2 Blog",
   "description": "Flickr 2 Blog Chrome App.",
-  "version": "0.2.2",
-  "app": {
-    "background": {
-      "scripts": ["launcher.js"]
-    }
+  "version": "0.2.3",
+  "browser_action": {
+      "default_title": "Flickr 2 Blog",
+      "default_icon": "flickr2blog-16.png",
+      "default_popup": "flickr2blog.html"
   },
   "icons": { "16": "flickr2blog-16.png", "128": "flickr2blog-128.png" },
+  "content_security_policy": "script-src 'self' https://api.flickr.com; object-src 'self'",
   "permissions": [
     "https://api.flickr.com/"
   ]
